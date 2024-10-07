@@ -4,26 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Login Page</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Fragrance Planet</title>
+    <link rel="stylesheet" href="style.css" />
     <!-- Link to your CSS file -->
     <!-- You can add other metadata here, such as descriptions, keywords, etc. -->
   </head>
   <body>
     <!-- Main Container for the Page -->
-    <div id="root_page">
-      <nav id="menu">
-        <ul id="menu_bar">
-          <li id="home">Home</li>
-          <li id="data">Database</li>
-          <li id="AI">Fragrance AI</li>
-          <li id="about">About us</li>
-        </ul>
-      </nav>
-      <main id="main">
-        <h1 id="name">Fragrance Planet</h1>
-      </main>
+    <div id="root">
+      <header>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Fragrances</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="title">
+          <h1>Fragrance Planet</h1>
+          <p>For all your fragrance needs</p>
+          <p></p>
+        </div>
+        <button class="profile-button" onclick="handleProfileClick()">
+          <img src="https://via.placeholder.com/40" alt="Profile Icon" />
+        </button>
+      </header>
 
+      <main>
+        <div class="search_container">
+          <form action="#" method="GET">
+            <input type="text" placeholder="search" id="input" />
+            <button type="submit" class="search_button">
+              <img src="" alt="" />
+            </button>
+          </form>
+        </div>
+      </main>
       <!-- React app will be rendered here -->
     </div>
 
