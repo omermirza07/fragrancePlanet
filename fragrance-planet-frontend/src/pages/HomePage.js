@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
 
 function HomePage() {
+  const navigate = useNavigate();  // Instantiate useNavigate
+
   return (
     <Box
       sx={{
@@ -23,7 +26,12 @@ function HomePage() {
       <Typography variant="body1" color="text.secondary" align="center">
         Discover scents that suit your personality. Let us recommend something special for you.
       </Typography>
-      <Button variant="contained" color="secondary" sx={{ marginTop: 3 }}>
+      <Button
+        variant="contained"
+        color="secondary"
+        sx={{ marginTop: 3 }}
+        onClick={() => navigate('/browse')}  // Add navigation on button click
+      >
         Browse Now
       </Button>
     </Box>
