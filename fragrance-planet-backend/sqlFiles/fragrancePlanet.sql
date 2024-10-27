@@ -50,4 +50,8 @@ INSERT INTO colognes (name, brand, description, price, imagePath, createdAt, upd
 ('Prada Luna Rossa', 'Prada', 'A sporty, energetic fragrance with a fresh and aromatic scent.', 79.99, '/images/prada_luna_rossa.jpg', NOW(), NOW()),
 ('Tom Ford Noir', 'Tom Ford', 'An oriental woody fragrance with warm and spicy notes.', 120.00, '/images/tom_ford_noir.jpg', NOW(), NOW()),
 ('Versace Eros', 'Versace', 'A bold mix of mint, vanilla, and tonka bean, symbolizing passion and power.', 75.99, '/images/versace_eros.jpg', NOW(), NOW()),
+<<<<<<< HEAD
 ('Yves Saint Laurent LHomme', 'Yves Saint Laurent', 'A fresh, masculine scent with notes of ginger and spice.', 95.00, '/images/yves_saint_laurent_lhomme.jpg', NOW(), NOW());
+=======
+('Yves Saint Laurent LHomme', 'Yves Saint Laurent', 'A fresh, masculine scent with notes of ginger and spice.', 95.00, '/images/yves_saint_laurent_lhomme.jpg', NOW(), NOW());
+>>>>>>> 184342018 (Commit all current changes to main)

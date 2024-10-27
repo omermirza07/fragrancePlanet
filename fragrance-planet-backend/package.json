@@ -8,6 +8,7 @@
         "dev": "nodemon server.js"
     },
     "dependencies": {
+<<<<<<< HEAD
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
@@ -16,5 +17,12 @@
     },
     "devDependencies": {
         "nodemon": "^2.0.12"
+=======
+        "bcrypt": "^5.1.1",
+        "dotenv": "^16.4.5",
+        "express": "^4.18.2",
+        "mysql2": "^3.11.3",
+        "sequelize": "^6.37.5"
+>>>>>>> 184342018 (Commit all current changes to main)
     }
 }
