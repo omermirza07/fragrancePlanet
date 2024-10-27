@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
@@ -17,19 +16,3 @@ connection.connect((err) => {
 });
 
 module.exports = connection;
-=======
-const { Sequelize } = require('sequelize');
-require('dotenv').config();
-
-const sequelize = new Sequelize(
-  process.env.DB_NAME,  // Database name
-  process.env.DB_USER,  // MySQL username
-  process.env.DB_PASSWORD,  // MySQL password
-  {
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-  }
-);
-
-module.exports = sequelize;
->>>>>>> 184342018 (Commit all current changes to main)
