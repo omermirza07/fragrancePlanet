@@ -14,6 +14,9 @@ function HomePage() {
         padding: 4,
       }}
     >
+      <Typography variant="h1" color="primary" gutterBottom>
+        Fragrance Planet
+      </Typography>
       <Typography variant="h2" color="primary" gutterBottom>
         Find Your Perfect Fragrance
       </Typography>
