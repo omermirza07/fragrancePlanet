@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./SignUpForm.css";
-import axios from 'axios';
+import axios from 'axios'; // Replace with axiosInstance if you've set it up
 import { Icon } from 'react-icons-kit';
 import { eyeOff } from 'react-icons-kit/feather/eyeOff';
 import { eye } from 'react-icons-kit/feather/eye';
@@ -28,10 +28,6 @@ const SignUpForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        setEmailInput(event.target.elements.email.value);
-        setUsernameInput(event.target.elements.username.value);
-        setPasswordInput(event.target.elements.password.value);
-
         if (emailInput.length < 7 || emailInput.length > 100) {
             setValidText("Invalid email");
             return;
@@ -44,22 +40,31 @@ const SignUpForm = () => {
         }
 
         try {
-            const response = await axios.post("/acct/create_acct", {
-                user_email: emailInput,
+            const response = await axios.post("http://localhost:5000/api/users/register", {
+                email: emailInput,
                 username: usernameInput,
-                user_password: passwordInput
+                password: passwordInput
             });
             console.log(response);
-            window.localStorage.setItem("loggedIn", true);
-            window.localStorage.setItem("user", usernameInput);
-            window.localStorage.setItem("userID", response.data.result.account_id);
-            navigate("/");
+            
+            // Display a success message
+            setValidText("You have successfully signed up. Please go to the login page to continue.");
+            
+            // Optionally, clear the form inputs
+            setEmailInput("");
+            setUsernameInput("");
+            setPasswordInput("");
+            
         } catch (error) {
             if (error.response && error.response.status === 400) {
-                if (error.response.data.type === 1) setValidText("Invalid email");
-                else if (error.response.data.type === 2) setValidText("Account already exists");
+                if (error.response.data.error === "User already exists") {
+                    setValidText("Account already exists");
+                } else {
+                    setValidText("Invalid email or other registration error.");
+                }
             } else {
                 console.error(error);
+                setValidText("Server error. Please try again later.");
             }
         }
     };
@@ -70,11 +75,11 @@ const SignUpForm = () => {
                 <h3>Sign Up</h3>
                 <div className="signup-input">
                     <h6>Email</h6>
-                    <input name="email" onInput={(event) => setEmailInput(event.target.value)} />
+                    <input name="email" value={emailInput} onInput={(event) => setEmailInput(event.target.value)} />
                 </div>
                 <div className="signup-input">
                     <h6>Username</h6>
-                    <input name="username" onInput={(event) => setUsernameInput(event.target.value)} />
+                    <input name="username" value={usernameInput} onInput={(event) => setUsernameInput(event.target.value)} />
                 </div>
                 <div className="signup-input">
                     <h6>Password</h6>
@@ -87,6 +92,9 @@ const SignUpForm = () => {
                 <button type="submit">Sign Up</button>
             </form>
             <p className="valid-text">{validText}</p>
+            {validText.includes("successfully signed up") && (
+                <a href="/login" style={{ color: 'blue', textDecoration: 'underline' }}>Go to Login Page</a>
+            )}
         </div>
     );
 };

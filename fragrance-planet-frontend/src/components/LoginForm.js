@@ -26,10 +26,7 @@ const LoginForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        setUsernameInput(event.target.elements.username.value);
-        setPasswordInput(event.target.elements.password.value);
-
+    
         if (usernameInput.length < 3 || usernameInput.length > 20) {
             setValidText("Username must be 3-20 characters");
             return;
@@ -37,22 +34,28 @@ const LoginForm = () => {
             setValidText("Password must be 8-30 characters");
             return;
         }
-
+    
         try {
-            const response = await axios.post("/acct/login", {
+            const response = await axios.post("http://localhost:5000/api/users/login", {
                 username: usernameInput,
-                user_password: passwordInput
+                password: passwordInput
             });
+
             console.log(response);
+
+            // Store user details in local storage
             window.localStorage.setItem("loggedIn", true);
-            window.localStorage.setItem("user", usernameInput);
-            window.localStorage.setItem("userID", response.data.result.account_id);
-            navigate("/");
+            window.localStorage.setItem("user", response.data.user.username);
+            window.localStorage.setItem("userID", response.data.user.id);
+            
+            // Navigate to the dashboard or home page after login
+            navigate("/dashboard");
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setValidText("Invalid username or password");
             } else {
                 console.error(error);
+                setValidText("Server error. Please try again later.");
             }
         }
     };
@@ -64,7 +67,7 @@ const LoginForm = () => {
                     <h3>Login</h3>
                     <div className="signup-input">
                         <h6>Username</h6>
-                        <input name="username" onInput={(event) => setUsernameInput(event.target.value)} />
+                        <input name="username" value={usernameInput} onInput={(event) => setUsernameInput(event.target.value)} />
                     </div>
                     <div className="signup-input">
                         <h6>Password</h6>
