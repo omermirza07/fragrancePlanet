@@ -4,8 +4,9 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
-import BrowsePage from './pages/BrowsePage';  // Import BrowsePage
-import Dashboard from './pages/Dashboard';     // Updated import to reflect new location
+import BrowsePage from './pages/BrowsePage';
+import FavoritesPage from './pages/FavoritesPage';  // Import FavoritesPage
+import Dashboard from './pages/Dashboard'; // Import Dashboard
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/browse" element={<BrowsePage />} />
-        <Route path="/dashboard" element={<Dashboard />} />  {/* Add route for Dashboard */}
+        <Route path="/favorites" element={<FavoritesPage />} /> {/* Add route for FavoritesPage */}
+        <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard route */}
       </Routes>
     </Router>
   );

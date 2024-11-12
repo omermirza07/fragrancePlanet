@@ -1,3 +1,5 @@
+// /fragrance-planet-backend/routes/favoriteRoutes.js
+
 const express = require('express');
 const db = require('../config/db');
 const authenticateToken = require('../middleware/authMiddleware'); // Middleware to authenticate users using JWT
@@ -33,6 +35,21 @@ router.delete('/remove', authenticateToken, (req, res) => {
     }
 
     res.status(200).json({ message: 'Favorite removed successfully' });
+  });
+});
+
+// Endpoint to get all favorite colognes of a user
+router.get('/:userId', authenticateToken, (req, res) => {
+  const userId = req.user.id;
+
+  const query = 'SELECT cologneId FROM favorites WHERE userId = ?';
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error('Error fetching favorites:', err);
+      return res.status(500).json({ error: 'Failed to fetch favorites' });
+    }
+
+    res.status(200).json(results);
   });
 });
 

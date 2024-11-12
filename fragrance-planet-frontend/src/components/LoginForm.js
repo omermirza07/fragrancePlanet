@@ -43,7 +43,8 @@ const LoginForm = () => {
 
             console.log(response);
 
-            // Store user details in local storage
+            // Store JWT token and user details in local storage
+            window.localStorage.setItem("token", response.data.token); // Store the JWT token
             window.localStorage.setItem("loggedIn", true);
             window.localStorage.setItem("user", response.data.user.username);
             window.localStorage.setItem("userID", response.data.user.id);
@@ -67,11 +68,20 @@ const LoginForm = () => {
                     <h3>Login</h3>
                     <div className="signup-input">
                         <h6>Username</h6>
-                        <input name="username" value={usernameInput} onInput={(event) => setUsernameInput(event.target.value)} />
+                        <input 
+                            name="username" 
+                            value={usernameInput} 
+                            onInput={(event) => setUsernameInput(event.target.value)} 
+                        />
                     </div>
                     <div className="signup-input">
                         <h6>Password</h6>
-                        <input type={type} name="password" value={passwordInput} onInput={(event) => setPasswordInput(event.target.value)} />
+                        <input 
+                            type={type} 
+                            name="password" 
+                            value={passwordInput} 
+                            onInput={(event) => setPasswordInput(event.target.value)} 
+                        />
                         <span className="flex justify-around items-center" onClick={handleToggle}>
                             <Icon icon={icon} size={25} />
                         </span>

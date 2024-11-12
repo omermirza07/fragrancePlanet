@@ -9,11 +9,12 @@ function BrowsePage() {
   const [favorites, setFavorites] = useState([]);
 
   const userId = window.localStorage.getItem("userID");
+  const token = window.localStorage.getItem("token"); // Retrieve JWT token
 
   useEffect(() => {
     async function fetchColognes() {
       try {
-        let url = 'http://localhost:5000/api/colognes';
+        let url = `http://localhost:5000/api/colognes`;
         if (sortBy) {
           url += `?sortBy=${sortBy}`;
         }
@@ -26,8 +27,10 @@ function BrowsePage() {
 
     async function fetchFavorites() {
       try {
-        const response = await axios.get(`http://localhost:5000/api/favorites/${userId}`);
-        setFavorites(response.data.map(fav => fav.id)); // Get an array of favorite cologne IDs
+        const response = await axios.get(`http://localhost:5000/api/favorites/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setFavorites(response.data.map(fav => fav.cologneId)); // Get an array of favorite cologne IDs
       } catch (error) {
         console.error('Error fetching favorites:', error);
       }
@@ -37,19 +40,23 @@ function BrowsePage() {
     if (userId) {
       fetchFavorites();
     }
-  }, [sortBy, userId]);
+  }, [sortBy, userId, token]);
 
   const handleFavorite = async (cologneId) => {
     try {
       if (favorites.includes(cologneId)) {
         // Remove from favorites
         await axios.delete('http://localhost:5000/api/favorites/remove', {
-          data: { userId, cologneId }
+          data: { cologneId },
+          headers: { Authorization: `Bearer ${token}` }
         });
         setFavorites(favorites.filter(id => id !== cologneId));
       } else {
         // Add to favorites
-        await axios.post('http://localhost:5000/api/favorites/add', { userId, cologneId });
+        await axios.post('http://localhost:5000/api/favorites/add', 
+          { cologneId },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         setFavorites([...favorites, cologneId]);
       }
     } catch (error) {
@@ -93,7 +100,7 @@ function BrowsePage() {
                 </Typography>
                 <IconButton
                   onClick={() => handleFavorite(cologne.id)}
-                  color="primary"
+                  sx={{ color: favorites.includes(cologne.id) ? 'red' : 'default' }}
                 >
                   {favorites.includes(cologne.id) ? <Favorite /> : <FavoriteBorder />}
                 </IconButton>
