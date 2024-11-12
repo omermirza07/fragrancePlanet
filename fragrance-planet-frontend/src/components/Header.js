@@ -1,8 +1,12 @@
+// src/components/Header.js
+// src/components/Header.js
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
 
-function Header() {
+
+function Header({ isSidebarOpen, toggleSidebar }) {
   const navigate = useNavigate();
 
   // Check if the user is logged in
@@ -20,6 +24,19 @@ function Header() {
   return (
     <AppBar position="sticky" color="primary">
       <Toolbar>
+        {/* Toggle button to open sidebar when closed */}
+        {!isSidebarOpen && (
+          <IconButton
+            onClick={toggleSidebar}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
+
         <Typography
           variant="h6"
           component="div"
@@ -28,25 +45,20 @@ function Header() {
         >
           Fragrance Planet
         </Typography>
+
         {loggedIn ? (
-          <>
-            <Box sx={{ marginRight: 2 }}>
-              <Typography variant="body1">
-                Welcome, {username}
-              </Typography>
-            </Box>
-            <Button color="inherit" onClick={() => navigate('/dashboard')}>Dashboard</Button>
-            <Button color="inherit" onClick={() => navigate('/browse')}>Browse</Button>
-            <Button color="inherit" onClick={() => navigate('/favorites')}>Favorites</Button> {/* New button for Favorites */}
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant="body1" sx={{ marginRight: 2 }}>
+              Welcome, {username}
+            </Typography>
             <Button color="inherit" onClick={handleLogout}>Logout</Button>
-          </>
+          </Box>
         ) : (
-          <>
+          <Box>
             <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>
             <Button color="inherit" onClick={() => navigate('/signup')}>Sign Up</Button>
-          </>
+          </Box>
         )}
-        <Button color="inherit">About Us</Button>
       </Toolbar>
     </AppBar>
   );

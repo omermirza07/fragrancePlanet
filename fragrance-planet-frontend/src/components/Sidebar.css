@@ -1,0 +1,62 @@
+/* src/components/Sidebar.css */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #000000; /* Black background */
+    color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: Arial, sans-serif;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h2 {
+    color: #110f01; /* Gold accent for the title */
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+    color: #FFFFFF; /* White text for links */
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.sidebar nav ul li a:hover {
+    color: #0d0001; /* Gold accent on hover */
+}
+
+.logout {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #555555;
+}
+
+.logout a {
+    color: #FF6666;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.logout a:hover {
+    color: #FF3333;
+}

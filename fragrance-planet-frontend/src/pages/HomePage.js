@@ -1,9 +1,10 @@
+// src/pages/HomePage.js
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
-  const navigate = useNavigate();  // Instantiate useNavigate
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -30,7 +31,7 @@ function HomePage() {
         variant="contained"
         color="secondary"
         sx={{ marginTop: 3 }}
-        onClick={() => navigate('/browse')}  // Add navigation on button click
+        onClick={() => navigate('/browse')}
       >
         Browse Now
       </Button>
