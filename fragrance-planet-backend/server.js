@@ -4,10 +4,11 @@ const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
 const cologneRoutes = require('./routes/cologneRoutes');
-const userRoutes = require('./routes/userRoutes'); // Import user routes
-const favoriteRoutes = require('./routes/favoritesRoutes'); // Import favorites routes
-const errorHandler = require('./middleware/errorHandler'); // Import error handler
-const authenticateToken = require('./middleware/authMiddleware'); // Import JWT authentication middleware
+const userRoutes = require('./routes/userRoutes');
+const favoriteRoutes = require('./routes/favoritesRoutes');
+const recommendationRoutes = require('./routes/recommendationRoutes'); // Import recommendation routes
+const errorHandler = require('./middleware/errorHandler');
+const authenticateToken = require('./middleware/authMiddleware');
 
 dotenv.config();
 const app = express();
@@ -29,7 +30,10 @@ app.use('/api/colognes', cologneRoutes);
 app.use('/api/users', userRoutes);
 
 // Use favorite routes for adding/removing favorites (Protected routes with JWT)
-app.use('/api/favorites', authenticateToken, favoriteRoutes); // Use `authenticateToken` middleware here to protect favorite routes
+app.use('/api/favorites', authenticateToken, favoriteRoutes);
+
+// Use recommendation routes (Protected with JWT)
+app.use('/api/recommendations', authenticateToken, recommendationRoutes);
 
 // Default route to handle root requests
 app.get('/', (req, res) => {

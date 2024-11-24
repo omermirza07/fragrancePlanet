@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InfoIcon from '@mui/icons-material/Info';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import LightbulbIcon from '@mui/icons-material/Lightbulb'; // Icon for Recommendations
 import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
@@ -43,6 +44,10 @@ function Sidebar() {
           <ListItem button onClick={() => navigate('/favorites')}>
             <ListItemIcon><FavoriteIcon style={{ color: 'white' }} /></ListItemIcon>
             <ListItemText primary="Favorites" />
+          </ListItem>
+          <ListItem button onClick={() => navigate('/recommendations')}> {/* Add recommendation link */}
+            <ListItemIcon><LightbulbIcon style={{ color: 'white' }} /></ListItemIcon>
+            <ListItemText primary="Recommendations" />
           </ListItem>
           <ListItem button onClick={() => navigate('/about')}>
             <ListItemIcon><InfoIcon style={{ color: 'white' }} /></ListItemIcon>

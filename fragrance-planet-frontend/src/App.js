@@ -9,6 +9,7 @@ import LoginForm from './components/LoginForm';
 import BrowsePage from './pages/BrowsePage';
 import FavoritesPage from './pages/FavoritesPage';
 import Dashboard from './pages/Dashboard';
+import RecommendationPage from './pages/RecommendationPage'; // Import RecommendationPage
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -27,6 +28,7 @@ function App() {
             <Route path="/browse" element={<BrowsePage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/recommendations" element={<RecommendationPage />} /> {/* Add Recommendations route */}
           </Routes>
         </div>
       </div>
