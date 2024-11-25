@@ -1,14 +1,19 @@
-/* src/App.css */
-
 body {
     margin: 0;
     padding: 0;
-    background-color: #121212; /* Dark theme background */
-    color: #FFFFFF; /* White text */
     font-family: Arial, sans-serif;
-}
-
-.main-content {
-    margin-left: 250px; /* Offset for sidebar */
+    background-color: #121212; /* Dark background */
+    color: #FFFFFF; /* White text */
+  }
+  
+  .main-content {
+    margin-left: 250px; /* Sidebar width */
     padding: 20px;
-}
+    transition: margin-left 0.3s ease;
+  }
+  
+  header {
+    padding-left: 250px; /* Sidebar width */
+    transition: padding-left 0.3s ease;
+  }
+  

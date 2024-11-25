@@ -6,55 +6,63 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
 import InfoIcon from '@mui/icons-material/Info';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MenuIcon from '@mui/icons-material/Menu';
-import LightbulbIcon from '@mui/icons-material/Lightbulb'; // Icon for Recommendations
-import { useNavigate } from 'react-router-dom';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import { useNavigate, useLocation } from 'react-router-dom';
+import './Sidebar.css';
 
-function Sidebar() {
+function Sidebar({ isSidebarOpen, toggleSidebar }) {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  const location = useLocation();
 
   const handleLogout = () => {
     window.localStorage.removeItem("loggedIn");
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("token");
-    navigate('/login'); // Redirect to login page after logout
+    navigate('/login');
   };
+
+  const menuItems = [
+    { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
+    { text: 'Browse', icon: <SearchIcon />, path: '/browse' },
+    { text: 'Favorites', icon: <FavoriteIcon />, path: '/favorites' },
+    { text: 'Recommendations', icon: <LightbulbIcon />, path: '/recommendations' },
+    { text: 'About Us', icon: <InfoIcon />, path: '/about' },
+  ];
 
   return (
     <>
-      <IconButton onClick={toggleDrawer} style={{ color: 'white', position: 'absolute', top: 16, left: 16 }}>
-        <MenuIcon />
-      </IconButton>
-      <Drawer anchor="left" open={open} onClose={toggleDrawer} PaperProps={{ sx: { backgroundColor: '#333333', color: 'white' } }}>
+      <Drawer
+        anchor="left"
+        open={isSidebarOpen}
+        onClose={toggleSidebar}
+        PaperProps={{
+          sx: {
+            width: '250px',
+            background: 'linear-gradient(to bottom, #333333, #4B0082)',
+            color: 'white',
+          },
+        }}
+      >
         <List>
-          <ListItem button onClick={() => navigate('/dashboard')}>
-            <ListItemIcon><DashboardIcon style={{ color: 'white' }} /></ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button onClick={() => navigate('/browse')}>
-            <ListItemIcon><SearchIcon style={{ color: 'white' }} /></ListItemIcon>
-            <ListItemText primary="Browse" />
-          </ListItem>
-          <ListItem button onClick={() => navigate('/favorites')}>
-            <ListItemIcon><FavoriteIcon style={{ color: 'white' }} /></ListItemIcon>
-            <ListItemText primary="Favorites" />
-          </ListItem>
-          <ListItem button onClick={() => navigate('/recommendations')}> {/* Add recommendation link */}
-            <ListItemIcon><LightbulbIcon style={{ color: 'white' }} /></ListItemIcon>
-            <ListItemText primary="Recommendations" />
-          </ListItem>
-          <ListItem button onClick={() => navigate('/about')}>
-            <ListItemIcon><InfoIcon style={{ color: 'white' }} /></ListItemIcon>
-            <ListItemText primary="About Us" />
-          </ListItem>
+          {menuItems.map((item) => (
+            <ListItem
+              button
+              key={item.text}
+              onClick={() => {
+                navigate(item.path);
+                toggleSidebar();
+              }}
+              className={location.pathname === item.path ? 'active-menu-item' : ''}
+            >
+              <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ))}
           <ListItem button onClick={handleLogout} style={{ marginTop: 'auto' }}>
-            <ListItemIcon><LogoutIcon style={{ color: '#FF6666' }} /></ListItemIcon>
+            <ListItemIcon>
+              <LogoutIcon style={{ color: '#FF6666' }} />
+            </ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItem>
         </List>

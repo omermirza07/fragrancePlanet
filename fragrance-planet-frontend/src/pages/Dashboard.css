@@ -1,0 +1,40 @@
+.dashboard-container {
+    padding: 20px;
+    background-color: #F5F5F5;
+    min-height: 100vh;
+}
+
+.dashboard-heading {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #4B0082;
+}
+
+.dashboard-subheading {
+    margin-bottom: 40px;
+    font-size: 18px;
+    color: #555;
+}
+
+.dashboard-card {
+    background-color: #4B0082;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-button {
+    margin-top: 20px;
+    background-color: #FFD700;
+    color: #4B0082;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-button:hover {
+    background-color: #FFC700;
+}

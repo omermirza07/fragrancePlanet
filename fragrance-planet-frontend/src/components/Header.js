@@ -1,15 +1,12 @@
 // src/components/Header.js
-// src/components/Header.js
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 
-
 function Header({ isSidebarOpen, toggleSidebar }) {
   const navigate = useNavigate();
 
-  // Check if the user is logged in
   const loggedIn = window.localStorage.getItem("loggedIn") === "true";
   const username = window.localStorage.getItem("user");
 
@@ -22,9 +19,15 @@ function Header({ isSidebarOpen, toggleSidebar }) {
   };
 
   return (
-    <AppBar position="sticky" color="primary">
+    <AppBar
+      position="sticky"
+      color="primary"
+      sx={{
+        paddingLeft: isSidebarOpen ? '250px' : '0px', // Align with sidebar
+        transition: 'padding-left 0.3s ease', // Smooth transition
+      }}
+    >
       <Toolbar>
-        {/* Toggle button to open sidebar when closed */}
         {!isSidebarOpen && (
           <IconButton
             onClick={toggleSidebar}
@@ -51,12 +54,18 @@ function Header({ isSidebarOpen, toggleSidebar }) {
             <Typography variant="body1" sx={{ marginRight: 2 }}>
               Welcome, {username}
             </Typography>
-            <Button color="inherit" onClick={handleLogout}>Logout</Button>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
           </Box>
         ) : (
           <Box>
-            <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>
-            <Button color="inherit" onClick={() => navigate('/signup')}>Sign Up</Button>
+            <Button color="inherit" onClick={() => navigate('/login')}>
+              Login
+            </Button>
+            <Button color="inherit" onClick={() => navigate('/signup')}>
+              Sign Up
+            </Button>
           </Box>
         )}
       </Toolbar>

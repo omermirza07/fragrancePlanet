@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './RecommendationPage.css';
 
 function RecommendationPage() {
-  const [notes, setNotes] = useState('');
   const [recommendations, setRecommendations] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const fetchRecommendations = async () => {
@@ -14,6 +15,9 @@ function RecommendationPage() {
       return;
     }
 
+    setLoading(true); // Show loading animation
+    setError('');
+
     try {
       const response = await axios.get('http://localhost:5000/api/recommendations', {
         headers: {
@@ -22,38 +26,32 @@ function RecommendationPage() {
       });
 
       // Update recommendations
-      setRecommendations(response.data.recommendations); // Extract recommendations
-      setError('');
+      setRecommendations(response.data.recommendations);
     } catch (err) {
       console.error(err);
       setError('Failed to fetch recommendations.');
+    } finally {
+      setLoading(false); // Hide loading animation
     }
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="recommendation-container">
       <h1>AI Fragrance Recommendations</h1>
       <p>Click below to get AI-powered fragrance recommendations based on your favorite colognes.</p>
-      <button
-        onClick={fetchRecommendations}
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#4A148C',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer',
-          borderRadius: '5px',
-        }}
-      >
+
+      <button className="get-recommendations-btn" onClick={fetchRecommendations}>
         Get Recommendations
       </button>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loading && <div className="loading-animation"></div>}
+
+      {error && <p style={{ color: 'red', marginTop: '20px' }}>{error}</p>}
 
       {recommendations.length > 0 && (
         <div>
           <h2>Your Recommendations</h2>
-          <ul>
+          <ul className="recommendation-list">
             {recommendations.map((rec, index) => (
               <li key={index}>{rec}</li>
             ))}

@@ -1,62 +1,62 @@
-/* src/components/Sidebar.css */
+/* Sidebar.css */
 
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #000000; /* Black background */
-    color: #FFFFFF;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    font-family: Arial, sans-serif;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar h2 {
-    color: #110f01; /* Gold accent for the title */
-    margin-bottom: 30px;
+/* Highlight active menu item */
+.active-menu-item {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left: 4px solid #FFD700; /* Gold highlight */
     font-weight: bold;
-    font-size: 1.5rem;
 }
 
-.sidebar nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+/* Smooth transition for sidebar opening/closing */
+.MuiDrawer-paper {
+    width: 260px; /* Increased width for longer text like "Recommendations" */
+    transition: all 0.3s ease;
+    background: linear-gradient(to bottom, #333333, #4B0082); /* Sidebar gradient */
+    color: white; /* White text for better contrast */
 }
 
-.sidebar nav ul li {
-    margin: 20px 0;
+/* Hover effect for list items */
+.MuiListItem-root:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.sidebar nav ul li a {
-    color: #FFFFFF; /* White text for links */
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
+/* Consistent spacing for icons */
+.MuiListItemIcon-root {
+    min-width: 40px;
+    color: white; /* White icons */
 }
 
-.sidebar nav ul li a:hover {
-    color: #0d0001; /* Gold accent on hover */
+/* Primary text style for list items */
+.MuiListItemText-primary {
+    font-size: 1rem; /* Slightly reduced font size for better fit */
+    font-weight: 500;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
 }
 
-.logout {
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid #555555;
+/* Toggle button for sidebar */
+.toggle-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.logout a {
-    color: #FF6666;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
+/* Hover effect for toggle button */
+.toggle-btn:hover {
+    color: #FFD700; /* Gold hover effect */
+    transform: rotate(180deg);
 }
 
-.logout a:hover {
-    color: #FF3333;
+/* Logout button styling */
+.logout-item {
+    color: #FF6666; /* Red text for logout */
+    font-weight: bold;
+}
+
+.logout-item:hover {
+    background-color: rgba(255, 102, 102, 0.2); /* Light red hover */
 }
