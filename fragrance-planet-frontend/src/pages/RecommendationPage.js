@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { DotLottie } from '@lottiefiles/dotlottie-web';
 import './RecommendationPage.css';
 
 function RecommendationPage() {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (loading) {
+      const canvas = document.querySelector('#dotlottie-canvas');
+      const dotLottie = new DotLottie({
+        autoplay: true,
+        loop: true,
+        canvas,
+        // src: 'https://lottie.host/d531d86b-2843-4c15-95c5-9c9d3e2a1071/xvW8QCqTxk.lottie', // infinite white bakcground
+        // src: 'https://lottie.host/2adde7df-7daa-4666-873f-6b29377f5df1/Xtm29XTEDs.lottie' // among us
+        src: 'https://lottie.host/8202f33e-6e36-4ae7-8cd3-3800879f53ca/yP9yEL9C5Z.lottie'// ball going into big ball
+      });
+    }
+  }, [loading]);
 
   const fetchRecommendations = async () => {
     const token = localStorage.getItem('token'); // Retrieve token from localStorage
@@ -44,7 +59,12 @@ function RecommendationPage() {
         Get Recommendations
       </button>
 
-      {loading && <div className="loading-animation"></div>}
+      {loading && (
+        <canvas
+          id="dotlottie-canvas"
+          style={{ width: '300px', height: '300px', margin: '20px auto', display: 'block', backgroundColor: 'transparent'}}
+        ></canvas>
+      )}
 
       {error && <p style={{ color: 'red', marginTop: '20px' }}>{error}</p>}
 

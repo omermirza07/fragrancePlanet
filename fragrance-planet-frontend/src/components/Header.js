@@ -45,6 +45,7 @@ function Header({ isSidebarOpen, toggleSidebar }) {
           component="div"
           sx={{ flexGrow: 1, cursor: 'pointer' }}
           onClick={() => navigate('/')}
+          color='#F8D87E'
         >
           Fragrance Planet
         </Typography>

@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Grid, Card, CardMedia, CardContent, FormControl, Select, MenuItem, IconButton } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  FormControl,
+  Select,
+  MenuItem,
+  IconButton,
+} from '@mui/material';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import axios from 'axios';
 
@@ -8,8 +19,8 @@ function BrowsePage() {
   const [sortBy, setSortBy] = useState('');
   const [favorites, setFavorites] = useState([]);
 
-  const userId = window.localStorage.getItem("userID");
-  const token = window.localStorage.getItem("token"); // Retrieve JWT token
+  const userId = window.localStorage.getItem('userID');
+  const token = window.localStorage.getItem('token'); // Retrieve JWT token
 
   useEffect(() => {
     async function fetchColognes() {
@@ -27,10 +38,13 @@ function BrowsePage() {
 
     async function fetchFavorites() {
       try {
-        const response = await axios.get(`http://localhost:5000/api/favorites/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setFavorites(response.data.map(fav => fav.cologneId)); // Get an array of favorite cologne IDs
+        const response = await axios.get(
+          `http://localhost:5000/api/favorites/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setFavorites(response.data.map((fav) => fav.cologneId)); // Get an array of favorite cologne IDs
       } catch (error) {
         console.error('Error fetching favorites:', error);
       }
@@ -48,12 +62,13 @@ function BrowsePage() {
         // Remove from favorites
         await axios.delete('http://localhost:5000/api/favorites/remove', {
           data: { cologneId },
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
-        setFavorites(favorites.filter(id => id !== cologneId));
+        setFavorites(favorites.filter((id) => id !== cologneId));
       } else {
         // Add to favorites
-        await axios.post('http://localhost:5000/api/favorites/add', 
+        await axios.post(
+          'http://localhost:5000/api/favorites/add',
           { cologneId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -84,17 +99,29 @@ function BrowsePage() {
       <Grid container spacing={3}>
         {colognes.map((cologne) => (
           <Grid item xs={12} sm={6} md={3} key={cologne.id}>
-            <Card sx={{ height: '100%' }}>
+            <Card
+              sx={{
+                height: '100%',
+                border: '2px solid black', // Add a black border around the card
+                borderRadius: '8px', // Optional: Slightly round the card corners
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Optional: Add shadow for a polished look
+              }}
+            >
               <CardMedia
                 component="img"
                 alt={cologne.name}
                 height="250"
                 image={`http://localhost:5000${cologne.imagePath}`}
-                sx={{ objectFit: 'contain', maxHeight: 250 }}
+                sx={{
+                  objectFit: 'contain',
+                  maxHeight: 250,
+                }}
               />
               <CardContent>
                 <Typography variant="h6">{cologne.name}</Typography>
-                <Typography variant="body2" color="text.secondary">{cologne.description}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {cologne.description}
+                </Typography>
                 <Typography variant="subtitle1" color="secondary">
                   ${cologne.price}
                 </Typography>

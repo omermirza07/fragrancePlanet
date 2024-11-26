@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#32124F', // Deep Purple for main accents
+      main: '#000000', // Deep Purple for main accents
     },
     secondary: {
       main: '#0A1448', // Dark Blue for secondary accents and buttons

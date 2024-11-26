@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./SignUpForm.css";
-import axios from 'axios'; // Replace with axiosInstance if you've set it up
+import axios from 'axios';
 import { Icon } from 'react-icons-kit';
 import { eyeOff } from 'react-icons-kit/feather/eyeOff';
 import { eye } from 'react-icons-kit/feather/eye';
 
 const SignUpForm = () => {
     const [emailInput, setEmailInput] = useState("");
+    const [confirmEmailInput, setConfirmEmailInput] = useState("");
     const [usernameInput, setUsernameInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
+    const [confirmPasswordInput, setConfirmPasswordInput] = useState("");
     const [validText, setValidText] = useState("");
     const [type, setType] = useState("password");
     const [icon, setIcon] = useState(eyeOff);
@@ -28,7 +30,13 @@ const SignUpForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (emailInput.length < 7 || emailInput.length > 100) {
+        if (emailInput !== confirmEmailInput) {
+            setValidText("Emails do not match");
+            return;
+        } else if (passwordInput !== confirmPasswordInput) {
+            setValidText("Passwords do not match");
+            return;
+        } else if (emailInput.length < 7 || emailInput.length > 100) {
             setValidText("Invalid email");
             return;
         } else if (usernameInput.length < 3 || usernameInput.length > 20) {
@@ -47,14 +55,12 @@ const SignUpForm = () => {
             });
             console.log(response);
             
-            // Display a success message
             setValidText("You have successfully signed up. Please go to the login page to continue.");
-            
-            // Optionally, clear the form inputs
             setEmailInput("");
+            setConfirmEmailInput("");
             setUsernameInput("");
             setPasswordInput("");
-            
+            setConfirmPasswordInput("");
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 if (error.response.data.error === "User already exists") {
@@ -78,6 +84,10 @@ const SignUpForm = () => {
                     <input name="email" value={emailInput} onInput={(event) => setEmailInput(event.target.value)} />
                 </div>
                 <div className="signup-input">
+                    <h6>Confirm Email</h6>
+                    <input name="confirmEmail" value={confirmEmailInput} onInput={(event) => setConfirmEmailInput(event.target.value)} />
+                </div>
+                <div className="signup-input">
                     <h6>Username</h6>
                     <input name="username" value={usernameInput} onInput={(event) => setUsernameInput(event.target.value)} />
                 </div>
@@ -87,6 +97,10 @@ const SignUpForm = () => {
                     <span className="flex justify-around items-center" onClick={handleToggle}>
                         <Icon icon={icon} size={25} />
                     </span>
+                </div>
+                <div className="signup-input">
+                    <h6>Confirm Password</h6>
+                    <input type={type} name="confirmPassword" value={confirmPasswordInput} onInput={(event) => setConfirmPasswordInput(event.target.value)} />
                 </div>
                 <br />
                 <button type="submit">Sign Up</button>
