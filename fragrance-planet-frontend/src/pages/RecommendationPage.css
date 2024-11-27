@@ -1,9 +1,10 @@
 /* RecommendationPage.css */
 .recommendation-container {
     padding: 20px;
-    background: linear-gradient(to bottom, #4A148C, #270734);
+    background: linear-gradient(to bottom, white, rgb(35, 34, 34));
+    /* background-color: white; */
     min-height: 100vh;
-    color: white;
+    color: black;
     text-align: center;
     font-family: 'Arial', sans-serif;
 }
@@ -11,19 +12,19 @@
 .recommendation-container h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: #FFD700; /* Gold accent */
+    color: black; /* Gold accent */
 }
 
 .recommendation-container p {
     font-size: 1.2rem;
     margin-bottom: 20px;
-    color: #EDE7F6;
+    color: black;
 }
 
 .get-recommendations-btn {
     padding: 12px 30px;
-    background: #FFD700; /* Gold Button */
-    color: #4A148C;
+    background: black; /* Gold Button */
+    color: white;
     border: none;
     font-size: 1.1rem;
     font-weight: bold;
@@ -40,9 +41,9 @@
 
 .loading-animation {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
+    justify-content:center;
+    align-items:center;
+    margin: 50px auto;
 }
 
 .recommendation-list {
@@ -52,11 +53,11 @@
 }
 
 .recommendation-list li {
-    background: #4A148C;
+    background: black;
     margin: 10px 0;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     font-size: 1.1rem;
-    color: #FFD700;
+    color: white;
 }

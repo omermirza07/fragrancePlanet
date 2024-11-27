@@ -80,7 +80,15 @@ function BrowsePage() {
   };
 
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box
+      sx={{
+        padding: 4,
+        minHeight: '100vh', // Full viewport height
+        // background: 'linear-gradient(to bottom, white, black)', // Gradient background
+        background: 'linear-gradient(to bottom, #FFFACD, black)'
+
+      }}
+    >
       <Typography variant="h4" color="primary" gutterBottom>
         Browse Our Colognes
       </Typography>

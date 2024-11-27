@@ -1,11 +1,24 @@
 /* AboutPage.css */
 
 .about-container {
+    position: relative;
     padding: 20px;
-    background-color: #F5F5F5;
+    /* background: linear-gradient(to bottom, white, black); */
+    background-color: #FFFAFA;
     min-height: 100vh;
     color: #4B0082; /* Deep purple theme color */
     font-family: Arial, sans-serif;
+}
+
+.overlay-image {
+    position: absolute; /* Overlay the image */
+    top: 0;
+    left: 0;
+    width: 100%; /* Cover the container */
+    height: 100%;
+    object-fit: cover; /* Ensure the image scales properly */
+    opacity: 0.2; /* Adjust transparency */
+    z-index: 1; /* Send it behind the content */
 }
 
 .about-title {
@@ -13,14 +26,14 @@
     text-align: center;
     margin-bottom: 20px;
     font-weight: bold;
-    color: #4B0082;
+    color: black;
 }
 
 .about-description {
     font-size: 1.2rem;
     text-align: center;
     margin-bottom: 40px;
-    color: #555;
+    color: black;
     max-width: 800px;
     margin: 0 auto;
 }
@@ -28,14 +41,15 @@
 .about-features {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 40px;
+    padding: 30px;
 }
 
 .feature {
     text-align: center;
-    background-color: #4B0082;
-    color: white;
+    background-color: black;
+    color: beige;
     padding: 20px;
     border-radius: 8px;
     flex: 1;

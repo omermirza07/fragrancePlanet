@@ -17,7 +17,8 @@ function RecommendationPage() {
         canvas,
         // src: 'https://lottie.host/d531d86b-2843-4c15-95c5-9c9d3e2a1071/xvW8QCqTxk.lottie', // infinite white bakcground
         // src: 'https://lottie.host/2adde7df-7daa-4666-873f-6b29377f5df1/Xtm29XTEDs.lottie' // among us
-        src: 'https://lottie.host/8202f33e-6e36-4ae7-8cd3-3800879f53ca/yP9yEL9C5Z.lottie'// ball going into big ball
+        // src: 'https://lottie.host/8202f33e-6e36-4ae7-8cd3-3800879f53ca/yP9yEL9C5Z.lottie'// ball going into big ball
+        src: 'https://lottie.host/a57f3a81-65d7-4fef-a793-e8ce4b498399/GWa2CFJ84f.lottie' // 3 dots
       });
     }
   }, [loading]);
@@ -62,7 +63,7 @@ function RecommendationPage() {
       {loading && (
         <canvas
           id="dotlottie-canvas"
-          style={{ width: '300px', height: '300px', margin: '20px auto', display: 'block', backgroundColor: 'transparent'}}
+          style={{ width: '150px', height: '150px', margin: '20px auto', display: 'block', backgroundColor: 'transparent'}}
         ></canvas>
       )}
 

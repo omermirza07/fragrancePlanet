@@ -55,7 +55,7 @@ function HomePage() {
           sx={{
             fontFamily: '"Playfair Display", serif', // Classy serif font
             color: '#F8D87E', // Change to white for better readability
-            textShadow: '0 0 10px rgba(0, 0, 0, 0.7)', // Add text shadow
+            textShadow: '0 0 10px rgba(0, 0, 0, 1)', // Add text shadow
           }}
           gutterBottom
         >
@@ -66,7 +66,7 @@ function HomePage() {
           sx={{
             fontFamily: 'Times New Roman',
             color: '#F5F5DC', // White color
-            textShadow: '0 0 8px rgba(0, 0, 0, 0.6)', // Subtle shadow
+            textShadow: '0 0 8px rgba(0, 0, 0, 1)', // Subtle shadow
           }}
           gutterBottom
         >
@@ -76,8 +76,8 @@ function HomePage() {
           variant="body1"
           sx={{
             fontFamily: 'Times New Roman',
-            color: '#F5F5DC', // Slightly off-white for variety
-            textShadow: '0 0 6px rgba(0, 0, 0, 0.5)', // Shadow for better readability
+            color: '#FFEB3B', // Slightly off-white for variety
+            textShadow: '0 0 6px rgba(0, 0, 0, 1)', // Shadow for better readability
           }}
           align="center"
         >

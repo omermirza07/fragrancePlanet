@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function FavoritesPage() {
   const [favorites, setFavorites] = useState([]);
+  const [gradient, setGradient] = useState('');
   const userId = window.localStorage.getItem("userID");
   const token = window.localStorage.getItem("token"); // Retrieve JWT token
 
@@ -11,16 +12,16 @@ function FavoritesPage() {
     async function fetchFavorites() {
       try {
         const response = await axios.get(`http://localhost:5000/api/favorites/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         // Fetch details of favorite colognes by their IDs
-        const cologneIds = response.data.map(fav => fav.cologneId);
+        const cologneIds = response.data.map((fav) => fav.cologneId);
         const cologneResponses = await Promise.all(
-          cologneIds.map(id => axios.get(`http://localhost:5000/api/colognes/${id}`))
+          cologneIds.map((id) => axios.get(`http://localhost:5000/api/colognes/${id}`))
         );
 
-        const colognes = cologneResponses.map(response => response.data);
+        const colognes = cologneResponses.map((response) => response.data);
         setFavorites(colognes);
       } catch (error) {
         console.error('Error fetching favorites:', error);
@@ -32,8 +33,54 @@ function FavoritesPage() {
     }
   }, [userId, token]);
 
+  useEffect(() => {
+    const extractColors = () => {
+      const elements = document.querySelectorAll('*');
+      const colors = new Set();
+
+      elements.forEach((el) => {
+        const styles = window.getComputedStyle(el);
+        const backgroundColor = styles.backgroundColor;
+
+        // Filter out invalid or transparent colors
+        if (
+          backgroundColor &&
+          backgroundColor !== 'rgba(0, 0, 0, 0)' &&
+          backgroundColor !== 'transparent'
+        ) {
+          colors.add(backgroundColor);
+        }
+      });
+
+      const colorArray = Array.from(colors);
+      if (colorArray.length) {
+        setGradient(`linear-gradient(to bottom, ${colorArray.join(', ')})`);
+      } else {
+        setGradient('white'); // Fallback to white if no colors are found
+      }
+    };
+
+    // Run the color extraction on page load and whenever the component updates
+    extractColors();
+
+    // Optionally re-run on window resize or other events (if needed for dynamic pages)
+    const observer = new MutationObserver(extractColors);
+    observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [favorites]);
+
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box
+      sx={{
+        padding: 4,
+        minHeight: '100vh',
+        background: gradient, // Dynamic gradient
+        transition: 'background 0.5s ease', // Smooth transition for changes
+      }}
+    >
       <Typography variant="h4" color="primary" gutterBottom>
         Your Favorite Colognes
       </Typography>
@@ -55,7 +102,9 @@ function FavoritesPage() {
                 />
                 <CardContent>
                   <Typography variant="h6">{cologne.name}</Typography>
-                  <Typography variant="body2" color="text.secondary">{cologne.description}</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {cologne.description}
+                  </Typography>
                   <Typography variant="subtitle1" color="secondary">
                     ${cologne.price}
                   </Typography>

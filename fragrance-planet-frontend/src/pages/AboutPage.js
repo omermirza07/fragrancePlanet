@@ -4,6 +4,12 @@ import './AboutPage.css';
 const AboutPage = () => {
     return (
         <div className="about-container">
+            {/* Transparent Image Overlay */}
+            <img
+                src="/aventus.png" /* Replace with your image path */
+                alt="Background Overlay"
+                className="overlay-image"
+            />
             <h1 className="about-title">About Fragrance Planet</h1>
             <p className="about-description">
                 Welcome to Fragrance Planet! We are dedicated to helping you discover your signature scent.
@@ -31,7 +37,7 @@ const AboutPage = () => {
                 </div>
             </div>
             <div className="about-footer">
-                
+                <h3>Crafted by Adan Butt, Raymon Amir-Hamzeh, Shanthan Gunti, Omer Mirza</h3>
             </div>
         </div>
     );
