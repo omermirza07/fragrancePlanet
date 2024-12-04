@@ -50,7 +50,7 @@ router.get('/', authenticateToken, (req, res) => {
                 { role: 'system', content: 'You are an expert fragrance advisor.' },
                 { role: 'user', content: `Based on these fragrance notes: ${favoriteNotes}, recommend 3 similar colognes.` },
               ],
-              max_tokens: 150,
+              max_tokens: 300,
             },
             {
               headers: {

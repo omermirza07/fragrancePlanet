@@ -37,7 +37,7 @@ const AboutPage = () => {
                 </div>
             </div>
             <div className="about-footer">
-                <h3>Crafted by Adan Butt, Raymon Amir-Hamzeh, Shanthan Gunti, Omer Mirza</h3>
+                <h3>Crafted by Omer Mirza, Shanthan Gunti, Raymon Amir-Hamzeh, Adan Butt</h3>
             </div>
         </div>
     );

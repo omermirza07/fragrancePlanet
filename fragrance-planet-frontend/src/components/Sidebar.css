@@ -11,7 +11,7 @@
 .MuiDrawer-paper {
     width: 260px; /* Increased width for longer text like "Recommendations" */
     transition: all 0.3s ease;
-    background: linear-gradient(to bottom, #333333, #4B0082);
+    background: linear-gradient(to bottom, #000000, #ffffff);
     color: white; /* White text for better contrast */
 }
 

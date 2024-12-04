@@ -39,7 +39,7 @@ function Sidebar({ isSidebarOpen, toggleSidebar }) {
         PaperProps={{
           sx: {
             width: '250px',
-            background: 'linear-gradient(to bottom, #333333, #301934)',
+            background: 'linear-gradient(to bottom, #000000, #ffffff)',
             color: 'white',
           },
         }}
