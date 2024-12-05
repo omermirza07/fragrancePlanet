@@ -6,7 +6,7 @@ const authenticateToken = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // OpenAI API Key
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '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';
 
 // Route to generate recommendations
 router.get('/', authenticateToken, (req, res) => {
