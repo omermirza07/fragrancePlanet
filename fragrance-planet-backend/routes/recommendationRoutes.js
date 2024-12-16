@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const db = require('../config/db'); // Non-promise version of mysql2
+const db = require('../config/db'); 
 const authenticateToken = require('../middleware/authMiddleware');
 
 const router = express.Router();
