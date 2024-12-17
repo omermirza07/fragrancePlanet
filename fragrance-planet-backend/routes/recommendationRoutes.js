@@ -1,23 +1,23 @@
-const express = require('express');
-const axios = require('axios');
-const db = require('../config/db'); // Non-promise version of mysql2
-const authenticateToken = require('../middleware/authMiddleware');
+const express = require('express'); // import express library
+const axios = require('axios'); // import axios for making API requests
+const db = require('../config/db'); // import database connection (non-promise version of mysql2)
+const authenticateToken = require('../middleware/authMiddleware'); // middleware to authenticate users using JWT
 
-const router = express.Router();
+const router = express.Router(); // create a router instance for handling routes
 
-// OpenAI API Key
-const OPENAI_API_KEY = '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';
+// openai api key for making requests to the OpenAI API
+const OPENAI_API_KEY = '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';
 
-// Route to generate recommendations
+// route to generate fragrance recommendations
 router.get('/', authenticateToken, (req, res) => {
-  const userId = req.user.id; // Extract user ID from the JWT
+  const userId = req.user.id; // extract user ID from the JWT
 
-  console.log('Step 1: User ID from Token:', userId);
+  console.log('Step 1: User ID from Token:', userId); // log user ID for debugging
 
   try {
-    console.log('Step 2: Fetching favorites for user...');
+    console.log('Step 2: Fetching favorites for user...'); // log the action of fetching favorites
 
-    // Callback-based query to fetch user favorites
+    // query to fetch the descriptions of user's favorite colognes
     db.query(
       `SELECT c.description FROM favorites f
        JOIN colognes c ON f.cologneId = c.id
@@ -25,61 +25,62 @@ router.get('/', authenticateToken, (req, res) => {
       [userId],
       (err, favorites) => {
         if (err) {
-          console.error('Error fetching favorites:', err);
-          return res.status(500).json({ message: 'Failed to fetch favorites.' });
+          console.error('Error fetching favorites:', err); // log error if the query fails
+          return res.status(500).json({ message: 'Failed to fetch favorites.' }); // send error response
         }
 
-        console.log('Step 3: Favorites fetched from database:', favorites);
+        console.log('Step 3: Favorites fetched from database:', favorites); // log the fetched favorites
 
         if (favorites.length === 0) {
-          console.log('Step 4: No favorites found for the user.');
-          return res.status(400).json({ message: 'No favorites found to base recommendations on.' });
+          console.log('Step 4: No favorites found for the user.'); // log when no favorites are found
+          return res.status(400).json({ message: 'No favorites found to base recommendations on.' }); // send a 400 error response
         }
 
+        // combine all favorite descriptions into a single string
         const favoriteNotes = favorites.map((fav) => fav.description).join(', ');
 
-        console.log('Step 5: Favorite notes for OpenAI:', favoriteNotes);
+        console.log('Step 5: Favorite notes for OpenAI:', favoriteNotes); // log the favorite notes being sent to OpenAI
 
-        // Send request to OpenAI API
+        // send a request to the OpenAI API with favorite notes
         axios
           .post(
             'https://api.openai.com/v1/chat/completions',
             {
-              model: 'gpt-4',
+              model: 'gpt-4', // specify the OpenAI model
               messages: [
-                { role: 'system', content: 'You are an expert fragrance advisor.' },
-                { role: 'user', content: `Based on these fragrance notes: ${favoriteNotes}, recommend 3 similar colognes.` },
+                { role: 'system', content: 'You are an expert fragrance advisor.' }, // system prompt for the AI
+                { role: 'user', content: `Based on these fragrance notes: ${favoriteNotes}, recommend 3 similar colognes.` }, // user prompt with favorite notes
               ],
-              max_tokens: 300,
+              max_tokens: 300, // set maximum token limit for the response
             },
             {
               headers: {
-                Authorization: `Bearer ${OPENAI_API_KEY}`,
-                'Content-Type': 'application/json',
+                Authorization: `Bearer ${OPENAI_API_KEY}`, // include API key in the request header
+                'Content-Type': 'application/json', // specify content type
               },
             }
           )
           .then((response) => {
-            console.log('Step 6: OpenAI API Response:', response.data);
+            console.log('Step 6: OpenAI API Response:', response.data); // log the response from the OpenAI API
 
-            // Parse recommendations from OpenAI response
+            // parse recommendations from the API response
             const recommendations = response.data.choices[0].message.content
               .split('\n')
-              .filter((line) => line.trim() !== ''); // Remove empty lines
+              .filter((line) => line.trim() !== ''); // filter out empty lines
 
-            console.log('Step 7: Recommendations:', recommendations);
-            return res.json({ recommendations });
+            console.log('Step 7: Recommendations:', recommendations); // log the parsed recommendations
+            return res.json({ recommendations }); // send the recommendations as a JSON response
           })
           .catch((apiError) => {
-            console.error('Step 8: OpenAI API Error:', apiError.message);
-            return res.status(500).json({ message: 'Failed to generate recommendations.', error: apiError.message });
+            console.error('Step 8: OpenAI API Error:', apiError.message); // log any errors from the OpenAI API
+            return res.status(500).json({ message: 'Failed to generate recommendations.', error: apiError.message }); // send a 500 error response
           });
       }
     );
   } catch (error) {
-    console.error('Step 9: General Error:', error.message);
-    return res.status(500).json({ message: 'Unexpected error occurred.', error: error.message });
+    console.error('Step 9: General Error:', error.message); // log general errors
+    return res.status(500).json({ message: 'Unexpected error occurred.', error: error.message }); // send a 500 error response
   }
 });
 
-module.exports = router;
+module.exports = router; // export the router to use it in other parts of the app

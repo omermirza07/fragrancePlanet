@@ -1,53 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { DotLottie } from '@lottiefiles/dotlottie-web';
-import './RecommendationPage.css';
+// import necessary dependencies for the recommendation page
+import React, { useState, useEffect } from 'react'; // react hooks for state management and side effects
+import axios from 'axios'; // library for making http requests
+import { DotLottie } from '@lottiefiles/dotlottie-web'; // library for displaying lottie animations
+import './RecommendationPage.css'; // import css for styling the component
 
 function RecommendationPage() {
+  // state to store the recommendations
   const [recommendations, setRecommendations] = useState([]);
+  // state to manage loading status
   const [loading, setLoading] = useState(false);
+  // state to store error messages
   const [error, setError] = useState('');
 
+  // useEffect to initialize the lottie animation when loading is true
   useEffect(() => {
     if (loading) {
-      const canvas = document.querySelector('#dotlottie-canvas');
+      const canvas = document.querySelector('#dotlottie-canvas'); // select the canvas element
       const dotLottie = new DotLottie({
-        autoplay: true,
-        loop: true,
+        autoplay: true, // start animation automatically
+        loop: true, // repeat the animation in a loop
         canvas,
-        // src: 'https://lottie.host/d531d86b-2843-4c15-95c5-9c9d3e2a1071/xvW8QCqTxk.lottie', // infinite white bakcground
-        // src: 'https://lottie.host/2adde7df-7daa-4666-873f-6b29377f5df1/Xtm29XTEDs.lottie' // among us
-        // src: 'https://lottie.host/8202f33e-6e36-4ae7-8cd3-3800879f53ca/yP9yEL9C5Z.lottie'// ball going into big ball
-        src: 'https://lottie.host/a57f3a81-65d7-4fef-a793-e8ce4b498399/GWa2CFJ84f.lottie' // 3 dots
+        src: 'https://lottie.host/a57f3a81-65d7-4fef-a793-e8ce4b498399/GWa2CFJ84f.lottie', // lottie animation source url
       });
     }
-  }, [loading]);
+  }, [loading]); // re-run the effect whenever the loading state changes
 
+  // function to fetch recommendations from the backend
   const fetchRecommendations = async () => {
-    const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const token = localStorage.getItem('token'); // retrieve the jwt token from local storage
 
     if (!token) {
-      setError('You are not logged in.');
+      setError('You are not logged in.'); // set error if token is missing
       return;
     }
 
-    setLoading(true); // Show loading animation
-    setError('');
+    setLoading(true); // set loading state to true to show loading animation
+    setError(''); // clear any previous errors
 
     try {
+      // make a get request to the recommendations api with the token
       const response = await axios.get('http://localhost:5000/api/recommendations', {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          Authorization: `Bearer ${token}`, // include jwt token in the request header
         },
       });
 
-      // Update recommendations
+      // update the recommendations state with the response data
       setRecommendations(response.data.recommendations);
     } catch (err) {
-      console.error(err);
-      setError('Failed to fetch recommendations.');
+      console.error(err); // log the error to the console
+      setError('Failed to fetch recommendations.'); // set an error message
     } finally {
-      setLoading(false); // Hide loading animation
+      setLoading(false); // set loading state to false to hide loading animation
     }
   };
 
@@ -60,21 +64,21 @@ function RecommendationPage() {
         Get Recommendations
       </button>
 
-      {loading && (
+      {loading && ( // show loading animation when loading is true
         <canvas
           id="dotlottie-canvas"
-          style={{ width: '150px', height: '150px', margin: '20px auto', display: 'block', backgroundColor: 'transparent'}}
+          style={{ width: '150px', height: '150px', margin: '20px auto', display: 'block', backgroundColor: 'transparent' }}
         ></canvas>
       )}
 
-      {error && <p style={{ color: 'red', marginTop: '20px' }}>{error}</p>}
+      {error && <p style={{ color: 'red', marginTop: '20px' }}>{error}</p>} {/* display error message if any */}
 
-      {recommendations.length > 0 && (
+      {recommendations.length > 0 && ( // display recommendations if the array is not empty
         <div>
           <h2>Your Recommendations</h2>
           <ul className="recommendation-list">
             {recommendations.map((rec, index) => (
-              <li key={index}>{rec}</li>
+              <li key={index}>{rec}</li> // display each recommendation in a list item
             ))}
           </ul>
         </div>
@@ -83,4 +87,4 @@ function RecommendationPage() {
   );
 }
 
-export default RecommendationPage;
+export default RecommendationPage; // export the recommendation page component

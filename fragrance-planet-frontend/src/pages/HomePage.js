@@ -15,7 +15,7 @@ function HomePage() {
         backgroundColor: '#eae6f3',
       }}
     >
-      {/* Background Images with Blur */}
+      {}
       <Box
         sx={{
           position: 'absolute',
@@ -29,19 +29,19 @@ function HomePage() {
             url('/scent1.png'),
             url('/scent3.png'),
             url('/scent2.png')`,
-          backgroundSize: '33.33% 100%', // Each image takes one-third of the width
+          backgroundSize: '33.33% 100%', 
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'left, center, right',
-          filter: 'blur(10px)', // Apply blur effect
-          zIndex: 1, // Keep it behind the text
+          filter: 'blur(10px)', 
+          zIndex: 1, 
         }}
       ></Box>
 
-      {/* Content Overlay */}
+      {}
       <Box
         sx={{
           position: 'relative',
-          zIndex: 2, // Keep text above the blurred background
+          zIndex: 2, 
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -53,9 +53,9 @@ function HomePage() {
         <Typography
           variant="h1"
           sx={{
-            fontFamily: '"Playfair Display", serif', // Classy serif font
-            color: '#F8D87E', // Change to white for better readability
-            textShadow: '0 0 10px rgba(0, 0, 0, 1)', // Add text shadow
+            fontFamily: '"Playfair Display", serif', 
+            color: '#F8D87E', 
+            textShadow: '0 0 10px rgba(0, 0, 0, 1)', 
           }}
           gutterBottom
         >
@@ -65,8 +65,8 @@ function HomePage() {
           variant="h2"
           sx={{
             fontFamily: 'Times New Roman',
-            color: '#F5F5DC', // White color
-            textShadow: '0 0 8px rgba(0, 0, 0, 1)', // Subtle shadow
+            color: '#F5F5DC', 
+            textShadow: '0 0 8px rgba(0, 0, 0, 1)',
           }}
           gutterBottom
         >
@@ -76,8 +76,8 @@ function HomePage() {
           variant="body1"
           sx={{
             fontFamily: 'Times New Roman',
-            color: '#FFEB3B', // Slightly off-white for variety
-            textShadow: '0 0 6px rgba(0, 0, 0, 1)', // Shadow for better readability
+            color: '#FFEB3B', 
+            textShadow: '0 0 6px rgba(0, 0, 0, 1)', 
           }}
           align="center"
         >

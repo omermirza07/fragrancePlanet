@@ -4,9 +4,9 @@ import './AboutPage.css';
 const AboutPage = () => {
     return (
         <div className="about-container">
-            {/* Transparent Image Overlay */}
+            {}
             <img
-                src="/aventus.png" /* Replace with your image path */
+                src="/aventus.png" 
                 alt="Background Overlay"
                 className="overlay-image"
             />

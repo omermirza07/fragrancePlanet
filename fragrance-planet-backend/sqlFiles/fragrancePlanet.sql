@@ -1,37 +1,37 @@
--- Create the fragrancePlanet database
+-- create the fragrancePlanet database if it doesn't already exist
 CREATE DATABASE IF NOT EXISTS fragrancePlanet;
 
--- Use the fragrancePlanet database
+-- select the fragrancePlanet database to use
 USE fragrancePlanet;
 
--- Create the users table
+-- create the users table to store user information
 CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY,                          -- unique user id with auto-increment
+    username VARCHAR(255) NOT NULL,                             -- username, required field
+    email VARCHAR(255) UNIQUE NOT NULL,                         -- unique email for each user, required field
+    password VARCHAR(255) NOT NULL,                             -- hashed password, required field
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,               -- timestamp for when the user is created
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- timestamp updates on record change
 );
 
--- Create the colognes table
+-- create the colognes table to store cologne details
 CREATE TABLE IF NOT EXISTS colognes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    brand VARCHAR(255) NOT NULL,
-    description TEXT,
-    price DECIMAL(10, 2) NOT NULL,
-    imagePath VARCHAR(255),
+    id INT AUTO_INCREMENT PRIMARY KEY,                          -- unique cologne id with auto-increment
+    name VARCHAR(255) NOT NULL,                                 -- cologne name, required field
+    brand VARCHAR(255) NOT NULL,                                -- brand name of the cologne, required field
+    description TEXT,                                           -- description of the cologne
+    price DECIMAL(10, 2) NOT NULL,                              -- price of the cologne with two decimal places
+    imagePath VARCHAR(255)                                      -- path to the image file for the cologne
 );
 
--- Create the favorites table
+-- create the favorites table to store user favorites
 CREATE TABLE IF NOT EXISTS favorites (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    userId INT,
-    cologneId INT,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userId) REFERENCES users(id),
-    FOREIGN KEY (cologneId) REFERENCES colognes(id)
+    id INT AUTO_INCREMENT PRIMARY KEY,                          -- unique favorite id with auto-increment
+    userId INT,                                                 -- id of the user who added the favorite
+    cologneId INT,                                              -- id of the cologne marked as favorite
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,               -- timestamp for when the favorite was added
+    FOREIGN KEY (userId) REFERENCES users(id),                  -- foreign key linking to the users table
+    FOREIGN KEY (cologneId) REFERENCES colognes(id)             -- foreign key linking to the colognes table
 );
 
 

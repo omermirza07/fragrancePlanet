@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card, CardContent, Typography, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css'; // Import the CSS file
+import './Dashboard.css'; 
 
 const Dashboard = () => {
     const username = window.localStorage.getItem("user");
