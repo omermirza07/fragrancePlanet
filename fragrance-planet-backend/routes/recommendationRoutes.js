@@ -6,7 +6,7 @@ const authenticateToken = require('../middleware/authMiddleware'); // middleware
 const router = express.Router(); // create a router instance for handling routes
 
 // OpenAI API Key for making requests to the OpenAI API
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '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';
 
 // route to generate fragrance recommendations
 router.get('/', authenticateToken, (req, res) => {
